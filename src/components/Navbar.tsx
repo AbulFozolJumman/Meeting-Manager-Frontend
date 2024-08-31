@@ -6,7 +6,7 @@ import React, { useState } from "react";
 const Navbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   //   const { user, role } = useSelector((state: RootState) => state.auth);
-  const user = true;
+  const user = false;
   const role = "user";
   //   const dispatch = useDispatch();
 
@@ -17,15 +17,13 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-white border-b border-gray-200 px-4 py-2 flex justify-between items-center shadow-sm">
-      {/* Logo */}
       <div
         className="text-xl font-semibold text-gray-800 cursor-pointer"
         onClick={() => (window.location.href = "/")}
       >
-        <img src="/src/assets/favicon.png" alt="" />
+        <img src="/src/assets/icon.png" className="w-[70px]" alt="" />
       </div>
 
-      {/* Navigation Links */}
       <div className="flex items-center space-x-6">
         <a href="/" className="text-gray-700 hover:text-blue-500">
           Home
@@ -40,14 +38,13 @@ const Navbar: React.FC = () => {
           Contact Us
         </a>
 
-        {/* User Icon / Login Button */}
         {user ? (
           <div className="relative">
             <button
               className="flex items-center text-gray-700 hover:text-blue-500"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <img src="/src/assets/favicon.png" alt="" />
+              <img src="/src/assets/avatar.png" className="w-[50px]" alt="" />
             </button>
 
             {isDropdownOpen && (

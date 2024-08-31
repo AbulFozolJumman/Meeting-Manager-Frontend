@@ -1,13 +1,5 @@
-import Navbar from "@/components/Navbar";
-import Container from "@/components/ui/Container";
-// import Navbar from "@/components/ui/Navbar";
+import React from "react";
 
-const Home = () => {
-  return (
-    <Container>
-      <Navbar />
-    </Container>
-  );
-};
-
-export default Home;
+export default function Home() {
+  return <></>;
+}
