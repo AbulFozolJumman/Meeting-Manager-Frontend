@@ -71,7 +71,7 @@ const Login: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <Link
-                to="/register"
+                to="/signup"
                 className="font-medium text-red-700 hover:text-red-500"
               >
                 New here? Register now

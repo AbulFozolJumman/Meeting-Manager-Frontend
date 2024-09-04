@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/icon.png";
+import avatar from "../assets/avatar.png";
 // import { useSelector, useDispatch } from "react-redux";
 // import { RootState } from '../store';
 // import { logout } from '../store/actions/authActions';
@@ -21,22 +24,22 @@ const Navbar: React.FC = () => {
         className="text-xl font-semibold text-gray-800 cursor-pointer"
         onClick={() => (window.location.href = "/")}
       >
-        <img src="/src/assets/icon.png" className="w-[70px]" alt="" />
+        <img src={logo} className="w-[70px]" alt="" />
       </div>
 
       <div className="flex items-center space-x-6">
-        <a href="/" className="text-gray-700 hover:text-blue-500">
+        <Link to="/" className="text-gray-700 hover:text-blue-500">
           Home
-        </a>
-        <a href="/rooms" className="text-gray-700 hover:text-blue-500">
+        </Link>
+        <Link to="/rooms" className="text-gray-700 hover:text-blue-500">
           Rooms
-        </a>
-        <a href="/about" className="text-gray-700 hover:text-blue-500">
+        </Link>
+        <Link to="/about" className="text-gray-700 hover:text-blue-500">
           About Us
-        </a>
-        <a href="/contact" className="text-gray-700 hover:text-blue-500">
+        </Link>
+        <Link to="/contact" className="text-gray-700 hover:text-blue-500">
           Contact Us
-        </a>
+        </Link>
 
         {user ? (
           <div className="relative">
@@ -44,19 +47,19 @@ const Navbar: React.FC = () => {
               className="flex items-center text-gray-700 hover:text-blue-500"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <img src="/src/assets/avatar.png" className="w-[50px]" alt="" />
+              <img src={avatar} className="w-[50px]" alt="" />
             </button>
 
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
                 {role === "user" ? (
                   <>
-                    <a
-                      href="/my-bookings"
+                    <Link
+                      to="/my-bookings"
                       className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
                       My Bookings
-                    </a>
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
@@ -66,12 +69,12 @@ const Navbar: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <a
-                      href="/dashboard"
+                    <Link
+                      to="/dashboard"
                       className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
                       Dashboard
-                    </a>
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
@@ -84,12 +87,12 @@ const Navbar: React.FC = () => {
             )}
           </div>
         ) : (
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="text-blue-500 font-semibold hover:text-blue-700"
           >
             Login
-          </a>
+          </Link>
         )}
       </div>
     </nav>
