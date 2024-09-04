@@ -3,34 +3,40 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import {
+  setAddress,
   setEmail,
   setName,
   setPassword,
-  setRole,
-} from "../redux/features/RegisterSlice";
-import { useSignUPMutation } from "../redux/api/auth/authApi";
+  setPhone,
+} from "../redux/features/SignupSlice";
+import { useSignupMutation } from "../redux/api/auth/authApi";
 
-const Register: React.FC = () => {
+const Signup: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { name, email, password, role } = useAppSelector(
-    (state: RootState) => state.register
+  const { name, email, password, role, phone, address } = useAppSelector(
+    (state: RootState) => state.signup
   );
 
-  const [signUP] = useSignUPMutation();
+  const [signup] = useSignupMutation();
 
-  const handleSubmmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const user = await signUP({ username: name, email, password, role });
+    const user = await signup({ name, email, password, role, phone, address });
 
-    console.log("our input", { name, email, password, role }, "output:", user);
+    console.log(
+      "our input",
+      { name, email, password, role, address, phone },
+      "output:",
+      user
+    );
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-800 via-red-700 to-green-600">
       <div className="w-full max-w-md bg-white shadow-md rounded-lg p-8">
         <h2 className="text-2xl font-semibold text-center text-red-700">
-          Register
+          Signup
         </h2>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmmit}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="name"
@@ -65,21 +71,6 @@ const Register: React.FC = () => {
           </div>
           <div>
             <label
-              htmlFor="role"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Role
-            </label>
-            <input
-              type="text"
-              id="role"
-              value={role}
-              onChange={(e) => dispatch(setRole(e.target.value))}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
@@ -95,11 +86,43 @@ const Register: React.FC = () => {
             />
           </div>
           <div>
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Phone Number
+            </label>
+            <input
+              type="text"
+              id="phone"
+              value={phone}
+              onChange={(e) => dispatch(setPhone(e.target.value))}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Your address
+            </label>
+            <input
+              type="text"
+              id="address"
+              value={address}
+              onChange={(e) => dispatch(setAddress(e.target.value))}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
+            />
+          </div>
+          <div>
             <button
               type="submit"
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
             >
-              Register
+              Signup
             </button>
           </div>
         </form>
@@ -119,4 +142,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Signup;

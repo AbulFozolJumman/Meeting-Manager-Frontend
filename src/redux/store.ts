@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import registerReducer from "./features/RegisterSlice";
+import signupReducer from "./features/SignupSlice";
 import loginReducer from "./features/loginSlice";
 import { baseApi } from "./api/baseApi";
 import { persistStore, persistReducer } from "redux-persist";
@@ -16,7 +16,7 @@ const persistedUserReducer = persistReducer(persistUserConfig, userReducer);
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
-    register: registerReducer,
+    signup: signupReducer,
     login: loginReducer,
     user: persistedUserReducer,
   },
