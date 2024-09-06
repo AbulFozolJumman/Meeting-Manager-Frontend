@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
@@ -11,6 +10,10 @@ import {
 } from "../redux/features/SignupSlice";
 import { useSignupMutation } from "../redux/api/auth/authApi";
 
+/*
+================== Handle success and error message ==============================
+*/
+
 const Signup: React.FC = () => {
   const dispatch = useAppDispatch();
   const { name, email, password, role, phone, address } = useAppSelector(
@@ -21,14 +24,21 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const user = await signup({ name, email, password, role, phone, address });
-
-    console.log(
-      "our input",
-      { name, email, password, role, address, phone },
-      "output:",
-      user
-    );
+    try {
+      const result = await signup({
+        name,
+        email,
+        password,
+        role,
+        phone,
+        address,
+      }).unwrap();
+      alert("User Registered Successfully");
+      console.log(result);
+    } catch (error: any) {
+      alert(error.data?.message);
+      console.log(error.data);
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-800 via-red-700 to-green-600">
