@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/icon.png";
 import avatar from "../assets/avatar.png";
-// import { useSelector, useDispatch } from "react-redux";
-// import { RootState } from '../store';
-// import { logout } from '../store/actions/authActions';
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { useAppDispatch } from "../redux/hooks";
+import { logout } from "../redux/features/userSlice";
 
 const Navbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  //   const { user, role } = useSelector((state: RootState) => state.auth);
-  const user = false;
-  const role = "user";
-  //   const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    // dispatch(logout());
-    console.log("object");
+    alert("Are you sure want to logout?");
+    const result = dispatch(logout());
+    console.log(result);
   };
 
   return (
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
           Contact Us
         </Link>
 
-        {user ? (
+        {user && user ? (
           <div className="relative">
             <button
               className="flex items-center text-gray-700 hover:text-blue-500"
@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
 
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
-                {role === "user" ? (
+                {user?.role === "user" ? (
                   <>
                     <Link
                       to="/my-bookings"
