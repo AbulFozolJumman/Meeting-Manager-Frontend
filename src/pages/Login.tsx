@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import { useLoginMutation } from "../redux/api/auth/authApi";
@@ -9,21 +9,30 @@ import { jwtDecode } from "jwt-decode";
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { email, password } = useAppSelector((state: RootState) => state.login);
 
   const [login] = useLoginMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data } = await login({ email, password });
+    try {
+      const { data } = await login({ email, password }).unwrap();
 
-    const token = data?.token;
+      const token = data?.token;
+      const user = jwtDecode(token);
 
-    const user = jwtDecode(token);
-
-    console.log("token", token, "user:", user);
-    dispatch(setToken(token));
-    dispatch(setUser(user));
+      console.log("token", token, "user:", user);
+      dispatch(setToken(token));
+      dispatch(setUser(user));
+      alert("Login successful.");
+      dispatch(setEmail(""));
+      dispatch(setPassword(""));
+      navigate("/");
+    } catch (error: any) {
+      alert(error?.data?.message || "An error occurred during login.");
+      console.error("Login error:", error);
+    }
   };
 
   return (

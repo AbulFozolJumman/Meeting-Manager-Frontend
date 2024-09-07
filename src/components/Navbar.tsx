@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/icon.png";
 import avatar from "../assets/avatar.png";
@@ -11,12 +11,33 @@ const Navbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for dropdown menu
 
   const handleLogout = () => {
     alert("Are you sure want to logout?");
-    const result = dispatch(logout());
-    console.log(result);
+    dispatch(logout());
   };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <nav className="bg-white border-b border-gray-200 px-4 py-2 flex justify-between items-center shadow-sm">
@@ -41,8 +62,8 @@ const Navbar: React.FC = () => {
           Contact Us
         </Link>
 
-        {user && user ? (
-          <div className="relative">
+        {user ? (
+          <div className="relative" ref={dropdownRef}>
             <button
               className="flex items-center text-gray-700 hover:text-blue-500"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -52,7 +73,7 @@ const Navbar: React.FC = () => {
 
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
-                {user?.role === "user" ? (
+                {user.role === "user" ? (
                   <>
                     <Link
                       to="/my-bookings"

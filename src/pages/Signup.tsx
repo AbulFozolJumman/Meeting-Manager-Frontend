@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import {
@@ -12,7 +12,7 @@ import { useSignupMutation } from "../redux/api/auth/authApi";
 
 const Signup: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const { name, email, password, role, phone, address } = useAppSelector(
     (state: RootState) => state.signup
   );
@@ -33,6 +33,11 @@ const Signup: React.FC = () => {
 
       alert("User Registered Successfully");
       console.log(result);
+      dispatch(setName(""));
+      dispatch(setEmail(""));
+      dispatch(setPassword(""));
+      dispatch(setPhone(""));
+      dispatch(setAddress(""));
       navigate("/login");
     } catch (error: any) {
       alert(error.data?.message);
