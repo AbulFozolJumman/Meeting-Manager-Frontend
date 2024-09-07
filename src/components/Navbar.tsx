@@ -73,7 +73,7 @@ const Navbar: React.FC = () => {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                <div className="absolute right-0 mt-2 z-50 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
                   {user.role === "user" ? (
                     <>
                       <Link
