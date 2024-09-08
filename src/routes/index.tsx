@@ -6,11 +6,13 @@ import App from "../App";
 import Rooms from "../pages/Rooms";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
+import Error from "../components/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
