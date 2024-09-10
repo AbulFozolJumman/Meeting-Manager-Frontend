@@ -8,6 +8,7 @@ import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import Error from "../components/Error";
 import RoomDetails from "../components/RoomComponents/RoomDetails";
+import Slots from "../components/Slot/Slots";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/rooms/:id",
         element: <RoomDetails />,
+      },
+      {
+        path: "/slots/:id",
+        element: <Slots />,
       },
       {
         path: "/about",

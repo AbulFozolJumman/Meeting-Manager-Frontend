@@ -10,7 +10,7 @@ const RoomDetails: React.FC = () => {
   const navigate = useNavigate();
 
   const handleBookNow = () => {
-    navigate(`/booking/${id}`);
+    navigate(`/slots/${id}`);
   };
 
   if (isLoading) return <p>Loading room details...</p>;
