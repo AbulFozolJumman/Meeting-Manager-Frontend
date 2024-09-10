@@ -23,7 +23,6 @@ const RoomDetails: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Room Image */}
       <motion.div
         className="mb-6 overflow-hidden rounded-md shadow-lg"
         initial={{ scale: 0.9 }}
@@ -33,11 +32,10 @@ const RoomDetails: React.FC = () => {
         <img
           src={room?.data.imageUrl || roomImage}
           alt={room?.data.name}
-          className="w-full h-auto"
+          className="w-full h-[300px] object-cover"
         />
       </motion.div>
 
-      {/* Room Name */}
       <motion.h1
         className="text-3xl font-bold mb-4 text-gray-800"
         initial={{ opacity: 0, y: 20 }}
@@ -48,7 +46,6 @@ const RoomDetails: React.FC = () => {
         {room?.data.name}
       </motion.h1>
 
-      {/* Room Details */}
       <motion.div
         className="bg-white p-6 rounded-lg shadow-lg space-y-4"
         initial={{ opacity: 0, y: 20 }}
@@ -73,7 +70,6 @@ const RoomDetails: React.FC = () => {
           <strong>Price Per Slot: </strong> ${room?.data.pricePerSlot}
         </p>
 
-        {/* Amenities List */}
         <motion.h3
           className="mt-4 mb-2 font-semibold text-xl"
           initial={{ opacity: 0, y: 20 }}
@@ -98,7 +94,6 @@ const RoomDetails: React.FC = () => {
         </ul>
       </motion.div>
 
-      {/* Book Now Button */}
       <motion.button
         onClick={handleBookNow}
         className="mt-8 px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200 shadow-md"
