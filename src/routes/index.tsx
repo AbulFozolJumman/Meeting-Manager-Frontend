@@ -7,6 +7,7 @@ import Rooms from "../pages/Rooms";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import Error from "../components/Error";
+import RoomDetails from "../components/RoomComponents/RoomDetails";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/rooms",
         element: <Rooms />,
+      },
+      {
+        path: "/rooms/:id",
+        element: <RoomDetails />,
       },
       {
         path: "/about",

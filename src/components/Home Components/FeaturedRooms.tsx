@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { TRoom } from "../../Types/types";
-import RoomCard from "../RoomCard";
+import RoomCard from "../RoomComponents/RoomCard";
 import { useGetAllRoomsQuery } from "../../redux/api/room/roomApi";
 
 const FeaturedRooms: React.FC = () => {
@@ -20,7 +20,7 @@ const FeaturedRooms: React.FC = () => {
         </p>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {rooms?.data?.map((room: TRoom) => (
-            <RoomCard key={room.id} room={room} />
+            <RoomCard key={room._id} room={room} />
           ))}
         </div>
         <div className="mt-8 text-center">

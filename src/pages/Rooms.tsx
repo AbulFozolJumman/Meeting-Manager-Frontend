@@ -1,7 +1,7 @@
 import React from "react";
 import { useGetAllRoomsQuery } from "../redux/api/room/roomApi";
 import { TRoom } from "../Types/types";
-import RoomCard from "../components/RoomCard";
+import RoomCard from "../components/RoomComponents/RoomCard";
 
 const Rooms: React.FC = () => {
   const { data: rooms, error, isLoading } = useGetAllRoomsQuery(undefined);
@@ -12,7 +12,7 @@ const Rooms: React.FC = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
       {rooms?.data?.map((room: TRoom) => (
-        <RoomCard key={room.id} room={room} />
+        <RoomCard key={room._id} room={room} />
       ))}
     </div>
   );

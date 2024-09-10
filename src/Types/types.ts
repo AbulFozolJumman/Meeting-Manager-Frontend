@@ -1,5 +1,5 @@
 export type TRoom = {
-  id: string;
+  _id: string;
   name: string;
   roomNo: number;
   floorNo: number;
