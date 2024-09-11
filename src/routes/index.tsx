@@ -9,6 +9,7 @@ import ContactUs from "../pages/ContactUs";
 import Error from "../components/Error";
 import RoomDetails from "../components/RoomComponents/RoomDetails";
 import Slots from "../components/Slot/Slots";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -34,11 +35,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/rooms/:id",
-        element: <RoomDetails />,
+        element: (
+          <PrivateRoute>
+            <RoomDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/slots/:id",
-        element: <Slots />,
+        element: (
+          <PrivateRoute>
+            <Slots />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/about",

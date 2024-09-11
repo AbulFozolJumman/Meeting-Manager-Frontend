@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
-  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for dropdown menu
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
     alert("Are you sure want to logout?");
