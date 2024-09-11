@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface IUser {
-  userId: string;
+  _id: string;
   role: "user" | "admin";
-  iat: number;
-  exp: number;
+  email: string;
+  name: string;
+  address: string;
+  phone: string;
 }
 
 type IAuthState = {

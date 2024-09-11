@@ -8,7 +8,6 @@ const RoomCard = ({ room }: { room: TRoom }) => {
   const handleSeeDetails = () => {
     navigate(`/rooms/${room._id}`);
   };
-  console.log(room._id);
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <img

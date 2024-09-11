@@ -68,6 +68,7 @@ const Navbar: React.FC = () => {
               <button
                 className="flex items-center text-gray-700 hover:text-blue-500"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                title={user?.name}
               >
                 <img src={avatar} className="w-[50px]" alt="" />
               </button>
