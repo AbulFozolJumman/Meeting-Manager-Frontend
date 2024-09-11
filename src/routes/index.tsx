@@ -11,6 +11,7 @@ import RoomDetails from "../components/RoomComponents/RoomDetails";
 import Slots from "../components/Slot/Slots";
 import PrivateRoute from "./PrivateRoute";
 import MyBooking from "../pages/MyBooking";
+import AddBooking from "../pages/AddBooking";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Slots />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/add-booking/:id",
+        element: (
+          <PrivateRoute>
+            <AddBooking />
           </PrivateRoute>
         ),
       },
