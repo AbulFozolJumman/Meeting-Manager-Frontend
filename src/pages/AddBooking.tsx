@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useParams } from "react-router-dom";
-import { useGetAllSlotsQuery } from "../redux/api/Slot/slotApi";
 import { useAddBookingMutation } from "../redux/api/booking/bookingApi";
+import { useGetAllSlotsQuery } from "../redux/api/Slot/slotApi";
 
 const AddBooking: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -12,7 +12,10 @@ const AddBooking: React.FC = () => {
   const { data: slots, error, isLoading } = useGetAllSlotsQuery(roomId);
   const [addBooking] = useAddBookingMutation();
 
-  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<{
+    id: string;
+    date: string;
+  } | null>(null);
 
   const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,9 +26,10 @@ const AddBooking: React.FC = () => {
 
     try {
       await addBooking({
-        userId: user?._id,
-        roomId: roomId,
-        slotId: selectedSlot,
+        user: user?._id,
+        room: roomId,
+        slots: [selectedSlot.id],
+        date: selectedSlot.date,
       }).unwrap();
       alert("Booking successfully made!");
     } catch (err) {
@@ -39,9 +43,7 @@ const AddBooking: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">
-        Book Your Slot For {slots?.data[0].room.name}
-      </h1>
+      <h1 className="text-2xl font-bold mb-6">Book Your Slot</h1>
 
       <form onSubmit={handleBooking} className="space-y-4">
         <div>
@@ -69,8 +71,15 @@ const AddBooking: React.FC = () => {
           {slots?.data?.length > 0 ? (
             <select
               className="w-full p-2 border border-gray-300 rounded"
-              value={selectedSlot || ""}
-              onChange={(e) => setSelectedSlot(e.target.value)}
+              value={selectedSlot?.id || ""}
+              onChange={(e) => {
+                const slot = slots.data.find(
+                  (slot: any) => slot._id === e.target.value
+                );
+                setSelectedSlot(
+                  slot ? { id: slot._id, date: slot.date } : null
+                );
+              }}
             >
               <option value="" disabled>
                 Select a slot
