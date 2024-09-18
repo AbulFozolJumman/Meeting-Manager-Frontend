@@ -8,3 +8,15 @@ export type TRoom = {
   amenities: string[];
   imageUrl?: string;
 };
+
+export type TSlot = {
+  _id: string;
+  room: TRoom;
+  date: string;
+  startTime: string;
+  endTime: string;
+};
+
+// interface TSlots {
+//   data: TSlot[];
+// }
