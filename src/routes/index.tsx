@@ -13,6 +13,8 @@ import PrivateRoute from "./PrivateRoute";
 import MyBooking from "../pages/MyBooking";
 import AddBooking from "../pages/AddBooking";
 import Dashboard from "../pages/Dashboard";
+import AddRoom from "../components/Dashboard Components/AddRoom";
+import UpdateRoom from "../components/Dashboard Components/UpdateRoom";
 
 export const router = createBrowserRouter([
   {
@@ -78,7 +80,27 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/add-room",
+        element: (
+          <PrivateRoute>
+            <AddRoom />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-room/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateRoom />
+          </PrivateRoute>
+        ),
       },
     ],
   },

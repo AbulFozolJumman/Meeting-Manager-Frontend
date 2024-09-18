@@ -1,3 +1,4 @@
+import BookingManagement from "../components/Dashboard Components/BookingManagement";
 import RoomManagement from "../components/Dashboard Components/RoomManagement";
 import SlotManagement from "../components/Dashboard Components/SlotManagement";
 
@@ -7,7 +8,7 @@ const Dashboard: React.FC = () => {
       <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
       <RoomManagement />
       <SlotManagement />
-      {/* <BookingManagement /> */}
+      <BookingManagement />
     </div>
   );
 };
