@@ -12,6 +12,7 @@ import Slots from "../components/Slot/Slots";
 import PrivateRoute from "./PrivateRoute";
 import MyBooking from "../pages/MyBooking";
 import AddBooking from "../pages/AddBooking";
+import Dashboard from "../pages/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactUs />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
       },
     ],
   },
