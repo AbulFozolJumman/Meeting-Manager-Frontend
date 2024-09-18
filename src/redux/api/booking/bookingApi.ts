@@ -8,6 +8,7 @@ const bookingApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Booking"],
     }),
     getAllBookings: builder.query({
       query: () => ({
@@ -26,6 +27,7 @@ const bookingApi = baseApi.injectEndpoints({
         url: `/bookings/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Booking"],
     }),
   }),
 });

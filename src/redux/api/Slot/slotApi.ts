@@ -8,6 +8,7 @@ const slotApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Slot"],
     }),
     getAllSlots: builder.query({
       query: (roomId?: string) => ({
