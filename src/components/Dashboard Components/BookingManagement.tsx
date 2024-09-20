@@ -35,49 +35,75 @@ const BookingManagement: React.FC = () => {
   if (error) return <p>Error loading bookings: {JSON.stringify(error)}</p>;
 
   return (
-    <div className="mb-10">
-      <h2 className="text-xl font-semibold mb-4">Booking Management</h2>
-      <table className="min-w-full bg-white rounded shadow">
-        <thead>
-          <tr>
-            <th>Room Name</th>
-            <th>User Name</th>
-            <th>Date & Time</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings?.data.map((booking: TBooking) => (
-            <tr key={booking._id}>
-              <td>{booking.room.name}</td>
-              <td>{booking.user.name}</td>
-              <td>{`${booking.slots[0].date} | ${booking.slots[0].startTime} - ${booking.slots[0].endTime}`}</td>
-              <td>{booking.isConfirmed ? "Confirmed" : "Unconfirmed"}</td>
-              <td>
-                <button
-                  onClick={() => handleApprove(booking._id)}
-                  className="text-green-500"
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => handleReject(booking._id)}
-                  className="text-orange-500 ml-2"
-                >
-                  Reject
-                </button>
-                <button
-                  onClick={() => handleDeleteBooking(booking._id)}
-                  className="text-red-500 ml-2"
-                >
-                  Delete
-                </button>
-              </td>
+    <div className="border rounded-lg p-5 bg-white">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-semibold text-gray-800">
+          Booking Management
+        </h2>
+      </div>
+
+      <div className="overflow-x-auto shadow rounded-lg">
+        <table className="min-w-full bg-white">
+          <thead className="bg-gray-100 text-gray-600 uppercase text-sm">
+            <tr>
+              <th className="py-3 px-6 text-left">Room Name</th>
+              <th className="py-3 px-6 text-left">User Name</th>
+              <th className="py-3 px-6 text-left">Date & Time</th>
+              <th className="py-3 px-6 text-left">Status</th>
+              <th className="py-3 px-6 text-left">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="text-gray-700 text-sm">
+            {bookings?.data.map((booking: TBooking) => (
+              <tr
+                key={booking._id}
+                className="border-b border-gray-200 hover:bg-gray-100 transition-colors"
+              >
+                <td className="py-3 px-6">{booking.room.name}</td>
+                <td className="py-3 px-6">{booking.user.name}</td>
+                <td className="py-3 px-6">
+                  {`${booking.slots[0].date} | ${booking.slots[0].startTime} - ${booking.slots[0].endTime}`}
+                </td>
+                <td className="py-3 px-6">
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                      booking.isConfirmed === "confirmed"
+                        ? "bg-green-100 text-green-600"
+                        : booking.isConfirmed === "unconfirmed"
+                        ? "bg-yellow-100 text-yellow-600"
+                        : "bg-red-100 text-red-600"
+                    }`}
+                  >
+                    {booking.isConfirmed}
+                  </span>
+                </td>
+                <td className="py-3 px-6">
+                  <div className="flex space-x-4">
+                    <button
+                      onClick={() => handleApprove(booking._id)}
+                      className="text-green-500 hover:text-green-600 transition-colors"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => handleReject(booking._id)}
+                      className="text-orange-500 hover:text-orange-600 transition-colors"
+                    >
+                      Reject
+                    </button>
+                    <button
+                      onClick={() => handleDeleteBooking(booking._id)}
+                      className="text-red-500 hover:text-red-600 transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

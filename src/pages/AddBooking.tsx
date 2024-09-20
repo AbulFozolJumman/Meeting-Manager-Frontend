@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAddBookingMutation } from "../redux/api/booking/bookingApi";
 import { useGetAllSlotsQuery } from "../redux/api/Slot/slotApi";
 
@@ -11,6 +11,7 @@ const AddBooking: React.FC = () => {
 
   const { data: slots, error, isLoading } = useGetAllSlotsQuery(roomId);
   const [addBooking] = useAddBookingMutation();
+  const navigate = useNavigate();
 
   const [selectedSlot, setSelectedSlot] = useState<{
     id: string;
@@ -32,6 +33,7 @@ const AddBooking: React.FC = () => {
         date: selectedSlot.date,
       }).unwrap();
       alert("Booking successfully made!");
+      navigate("/my-bookings", { state: { refetch: true } });
     } catch (err) {
       console.error("Failed to book the slot: ", err);
       alert("Failed to make the booking. Please try again.");
@@ -99,7 +101,7 @@ const AddBooking: React.FC = () => {
           type="submit"
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200"
         >
-          Confirm Booking
+          Book
         </button>
       </form>
     </div>

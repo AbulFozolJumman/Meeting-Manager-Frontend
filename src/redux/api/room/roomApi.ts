@@ -8,28 +8,28 @@ const roomApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Room"], // Invalidates Room cache
+      invalidatesTags: ["Room"],
     }),
     getAllRooms: builder.query({
       query: () => ({
         url: "/rooms",
         method: "GET",
       }),
-      providesTags: ["Room"], // Provides Room cache tag
+      providesTags: ["Room"],
     }),
     getRoomById: builder.query({
       query: (id) => ({
         url: `/rooms/${id}`,
         method: "GET",
       }),
-      providesTags: (result, error, id) => [{ type: "Room", id }], // Provides Room tag with id
+      providesTags: (id) => [{ type: "Room", id }],
     }),
     deleteRoomById: builder.mutation({
       query: (id) => ({
         url: `/rooms/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Room"], // Invalidates Room cache
+      invalidatesTags: ["Room"],
     }),
     updateRoomById: builder.mutation({
       query: ({ id, data }) => ({
@@ -37,7 +37,7 @@ const roomApi = baseApi.injectEndpoints({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["Room"], // Invalidates Room cache
+      invalidatesTags: ["Room"],
     }),
   }),
 });

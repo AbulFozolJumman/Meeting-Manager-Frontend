@@ -33,64 +33,69 @@ const RoomManagement: React.FC = () => {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading rooms: {JSON.stringify(error)}</p>;
 
+  // Filter out rooms where isDeleted is true
+  const filteredRooms = rooms?.data.filter((room: TRoom) => !room.isDeleted);
+
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-semibold mb-6">Room Management</h2>
-      <button
-        className="mb-6 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-200"
-        onClick={handleAddRoom}
-      >
-        Create Room
-      </button>
-      <table className="min-w-full bg-white rounded-md shadow-md">
-        <thead className="bg-gray-200">
-          <tr>
-            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
-              Room Name
-            </th>
-            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
-              Room No.
-            </th>
-            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
-              Floor No.
-            </th>
-            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
-              Capacity
-            </th>
-            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
-              Price Per Slot
-            </th>
-            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {rooms?.data.map((room: TRoom) => (
-            <tr key={room._id} className="hover:bg-gray-100">
-              <td className="px-6 py-4">{room.name}</td>
-              <td className="px-6 py-4">{room.roomNo}</td>
-              <td className="px-6 py-4">{room.floorNo}</td>
-              <td className="px-6 py-4">{room.capacity}</td>
-              <td className="px-6 py-4">${room.pricePerSlot}</td>
-              <td className="px-6 py-4">
-                <button
-                  onClick={() => handleUpdateRoom(room._id)}
-                  className="text-blue-500 hover:text-blue-700 mr-2"
-                >
-                  Update
-                </button>
-                <button
-                  onClick={() => handleDeleteRoom(room._id)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  Delete
-                </button>
-              </td>
+    <div className="mb-10 border rounded-lg p-5 bg-white">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-semibold text-gray-800">
+          Room Management
+        </h2>
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-200"
+          onClick={handleAddRoom}
+        >
+          Create Room
+        </button>
+      </div>
+
+      <div className="overflow-x-auto shadow rounded-lg">
+        <table className="min-w-full bg-white rounded-md shadow-md">
+          <thead className="bg-gray-100 text-gray-600 uppercase text-sm">
+            <tr>
+              <th className="px-6 py-3 text-left font-semibold">Room Name</th>
+              <th className="px-6 py-3 text-left font-semibold">Room No.</th>
+              <th className="px-6 py-3 text-left font-semibold">Floor No.</th>
+              <th className="px-6 py-3 text-left font-semibold">Capacity</th>
+              <th className="px-6 py-3 text-left font-semibold">
+                Price Per Slot
+              </th>
+              <th className="px-6 py-3 text-left font-semibold">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="text-gray-700 text-sm">
+            {filteredRooms?.map((room: TRoom) => (
+              <tr
+                key={room._id}
+                className="border-b border-gray-200 hover:bg-gray-100 transition-colors"
+              >
+                <td className="px-6 py-4">{room.name}</td>
+                <td className="px-6 py-4">{room.roomNo}</td>
+                <td className="px-6 py-4">{room.floorNo}</td>
+                <td className="px-6 py-4">{room.capacity}</td>
+                <td className="px-6 py-4">${room.pricePerSlot}</td>
+                <td className="px-6 py-4">
+                  <div className="flex space-x-4">
+                    <button
+                      onClick={() => handleUpdateRoom(room._id)}
+                      className="text-blue-500 hover:text-blue-600 transition-colors"
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={() => handleDeleteRoom(room._id)}
+                      className="text-red-500 hover:text-red-600 transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

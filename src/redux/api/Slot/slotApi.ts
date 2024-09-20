@@ -17,6 +17,7 @@ const slotApi = baseApi.injectEndpoints({
           : "/slots/availability",
         method: "GET",
       }),
+      providesTags: ["Slot"],
     }),
   }),
 });

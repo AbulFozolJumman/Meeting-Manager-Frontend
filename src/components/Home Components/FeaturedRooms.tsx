@@ -6,6 +6,9 @@ import { useGetAllRoomsQuery } from "../../redux/api/room/roomApi";
 const FeaturedRooms: React.FC = () => {
   const { data: rooms, error, isLoading } = useGetAllRoomsQuery(undefined);
 
+  // Filter out rooms where isDeleted is true
+  const filteredRooms = rooms?.data.filter((room: TRoom) => !room.isDeleted);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading rooms: {JSON.stringify(error)}</p>;
 
@@ -19,7 +22,7 @@ const FeaturedRooms: React.FC = () => {
           Discover our top meeting spaces tailored for every need.
         </p>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {rooms?.data?.map((room: TRoom) => (
+          {filteredRooms?.map((room: TRoom) => (
             <RoomCard key={room._id} room={room} />
           ))}
         </div>
