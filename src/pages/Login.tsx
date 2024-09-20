@@ -17,7 +17,6 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const data = await login({ email, password }).unwrap();
-
       const token = data?.token;
       const user = data?.data;
 
@@ -35,18 +34,16 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-800 via-red-700 to-green-600">
-      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-8">
-        <h2 className="text-2xl font-semibold text-center text-red-700">
-          Login
-        </h2>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full space-y-6">
+        <h2 className="text-3xl font-bold text-center text-red-700">Login</h2>
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              User Email
+              Email address
             </label>
             <input
               type="email"
@@ -54,7 +51,7 @@ const Login: React.FC = () => {
               value={email}
               onChange={(e) => dispatch(setEmail(e.target.value))}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
+              className="mt-1 w-full px-4 py-2 border rounded-md text-sm shadow-sm focus:outline-none focus:ring focus:ring-red-300"
             />
           </div>
           <div>
@@ -70,28 +67,21 @@ const Login: React.FC = () => {
               value={password}
               onChange={(e) => dispatch(setPassword(e.target.value))}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
+              className="mt-1 w-full px-4 py-2 border rounded-md text-sm shadow-sm focus:outline-none focus:ring focus:ring-red-300"
             />
           </div>
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <Link
-                to="/signup"
-                className="font-medium text-red-700 hover:text-red-500"
-              >
-                New here? Register now
-              </Link>
-            </div>
-          </div>
-          <div>
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
-            >
-              Sign in
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-red-600 text-white rounded-md shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition"
+          >
+            Sign in
+          </button>
         </form>
+        <div className="mt-6 text-center">
+          <Link to="/signup" className="text-red-600 hover:underline">
+            New here? Register now
+          </Link>
+        </div>
       </div>
     </div>
   );
